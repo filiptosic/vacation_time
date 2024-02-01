@@ -48,6 +48,7 @@ class Employee:
             self.weeks_of_entitlement = entitlement[2024 - hire_year]
         except KeyError:
             self.weeks_of_entitlement = 6
+        Employee.emp_list.sort(key = lambda emp_list: emp_list['hire_year'])
 
     def get_desired_weeks(self):
         self.desired_weeks = []
@@ -72,8 +73,8 @@ class Employee:
     def sort_by_seniority(emp_list):
         return emp_list["hire_year"]
 
-def apply_for_week(employee, current_preference):
-    for week in employee.desired_weeks[0]:
+def apply_for_week(employee, current_entitlement):
+    for week in employee.desired_weeks[current_entitlement]:
         for key in week:
             if weeks_of_year[week[key]] < 2:
                 weeks_of_year[week[key]] += 1
@@ -85,20 +86,21 @@ emp1 = Employee("Jim", 2021, 175925)
 emp2 = Employee("Pam", 2022, 918348)
 emp3= Employee("Dwight", 2022, 192080)
 emp4 = Employee("Michael", 2004, 49019)
-print(emp1.weeks_of_entitlement)
-emp1.get_desired_weeks()
+# print(emp1.weeks_of_entitlement)
+# emp1.get_desired_weeks()
+# # print(emp1.desired_weeks)
+# # emp2.get_desired_weeks()
+# # emp3.get_desired_weeks()
+# # # # print(Employee.emp_list)
+# # apply_for_week(emp1)
+# # apply_for_week(emp2)
+# # apply_for_week(emp3)
 # print(emp1.desired_weeks)
-# emp2.get_desired_weeks()
-# emp3.get_desired_weeks()
-# # # print(Employee.emp_list)
-# apply_for_week(emp1)
-# apply_for_week(emp2)
-# apply_for_week(emp3)
-print(emp1.desired_weeks)
-print(who_is_off, weeks_of_year)
+# print(who_is_off, weeks_of_year)
 # Employee.emp_list.sort(key=Employee.sort_by_seniority)
 # sorted_emps = Employee.emp_list
 # print(sorted_emps)
+print(Employee.emp_list)
 
 
 
