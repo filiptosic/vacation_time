@@ -52,11 +52,11 @@ class Employee:
 
     def get_desired_weeks(self):
         self.desired_weeks = []
-        weeks_selected = 0
-        while weeks_selected < self.weeks_of_entitlement:
+        weeks_selected = 1
+        while weeks_selected < self.weeks_of_entitlement + 1:
             options = []
-            attempts = 0
-            while attempts < 3:
+            attempts = 1
+            while attempts < 4:
                 try:
                     desired = int(input(f"Enter vacation week {weeks_selected} option {attempts} : "))
                     options.append(desired)
