@@ -66,13 +66,6 @@ class Employee:
             self.desired_weeks.append(options)
             weeks_selected += 1
 
-
-    def assign_seniority(self, hire_date):
-       start_date[self.name] = hire_date
-
-    def sort_by_seniority(emp_list):
-        return emp_list["hire_year"]
-
 def apply_for_week(employee, current_entitlement):
     for week in employee.desired_weeks[current_entitlement]:
         for key in week:
