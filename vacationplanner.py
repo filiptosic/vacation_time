@@ -26,12 +26,18 @@ entitlement = {
 # create start date dict for employees
 start_date = []
 #create employee class
+class IterRegistry(type):
+    def __iter__(cls):
+        return iter(cls._registry)
 
-class Employee:
+class Employee(metaclass=IterRegistry):
+
+    _registry = []
 
     emp_list = []
 
     def __init__(self, name, hire_year, emp_number):
+        self._registry.append(self)
         self.name = name
         self.hire_year = hire_year
         self.emp_number = emp_number
@@ -45,8 +51,10 @@ class Employee:
         except KeyError:
             self.weeks_of_entitlement = 6
         Employee.emp_list.sort(key = lambda emp_list: emp_list['hire_year'])
+        Employee._registry.sort(key=lambda _registry: _registry.hire_year)
 
     def get_desired_weeks(self):
+        print(f'getting desired weeks for {self.name}')
         self.desired_weeks = []
         weeks_selected = 0
         while weeks_selected < self.weeks_of_entitlement:
@@ -60,31 +68,35 @@ class Employee:
                     print("Please enter INT's only")
                 attempts += 1
             self.desired_weeks.append(options)
+            
             weeks_selected += 1
      
-def apply_for_week(employee):
-    
-    for week in employee.desired_weeks[0]:
-        print(week)
+def apply_for_week(employee, week):
+    for week in employee.desired_weeks[week]:
         if len(who_is_off[week]) < 2:
             who_is_off[week].append(employee.name)
             return True
+
 
 emp1 = Employee("Jim", 2021, 175925)
 emp2 = Employee("Pam", 2022, 918348)
 emp3= Employee("Dwight", 2022, 192080)
 emp4 = Employee("Michael", 2004, 49019)
 
-emp1.get_desired_weeks()
+# emp1.get_desired_weeks()
+# emp2.get_desired_weeks()
+# emp3.get_desired_weeks()
 
-emp2.get_desired_weeks()
-emp3.get_desired_weeks()
+# apply_for_week(emp1)
+# apply_for_week(emp2)
+# apply_for_week(emp3)
 
-apply_for_week(emp1)
-apply_for_week(emp2)
-apply_for_week(emp3)
-print(who_is_off)
+# print(who_is_off)
+for item in Employee:
+    print(item.name)
+# current_week = 0
+# max_weeks = 3
+# while current_week < max_weeks:
 
 
-
-
+#     current_week += 1
