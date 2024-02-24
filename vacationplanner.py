@@ -72,8 +72,8 @@ class Employee(metaclass=IterRegistry):
             
             weeks_selected += 1
      
-def apply_for_week(employee, week):
-    for week in employee.desired_weeks[week]:
+def apply_for_week(employee):
+    for week in employee.desired_weeks[0]:
         if len(who_is_off[week]) < 2:
             who_is_off[week].append(employee.name)
             return True
@@ -84,24 +84,23 @@ emp2 = Employee("Pam", 2022, 918348)
 emp3= Employee("Dwight", 2022, 192080)
 emp4 = Employee("Michael", 2004, 49019)
 
-# emp1.get_desired_weeks()
+emp1.get_desired_weeks()
 # emp2.get_desired_weeks()
 # emp3.get_desired_weeks()
 
-# apply_for_week(emp1)
+apply_for_week(emp1)
 # apply_for_week(emp2)
 # apply_for_week(emp3)
 
 # print(who_is_off)
 for item in Employee:
     print(item.name)
-# current_week = 0
-# max_weeks = 3
-# while current_week < max_weeks:
-
-
 #     current_week += 1
 headers = ["week", "names", "count"]
-with open('scheduled_weeks.csv', 'a') as f:
-    writer = csv.DictWriter(f, fieldnames=headers)
+with open('scheduled_weeks.csv', 'w', newline='') as f:
+    writer = csv.DictWriter(f, headers)
     writer.writeheader()
+    for data in who_is_off.items():
+        writer.writerow({'week': data[0], 'names': data[1], 'count': len(data[1])})
+
+#instead of who_is_off being a dictionary, consider making a list of dicts or list of lists
