@@ -1,4 +1,5 @@
 from datetime import datetime as dt
+import csv
 this_year = dt.now().year
 print(this_year)
 
@@ -100,3 +101,7 @@ for item in Employee:
 
 
 #     current_week += 1
+headers = ["week", "names", "count"]
+with open('scheduled_weeks.csv', 'a') as f:
+    writer = csv.DictWriter(f, fieldnames=headers)
+    writer.writeheader()
